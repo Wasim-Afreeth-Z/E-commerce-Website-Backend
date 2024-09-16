@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser') // npm i cookie-parser
 const mysql = require('mysql')
 const cors = require('cors')
+const dotenv = require('dotenv')
 const app = express();
 
 const userRouter = require('./routers/userRoute')
@@ -33,6 +34,7 @@ global.db = require('./database/db')
 // })
 
 //Middlewares
+dotenv.config()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))  // Help to read the data from the (form)
 app.use(cookieParser())
