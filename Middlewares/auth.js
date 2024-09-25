@@ -1,10 +1,10 @@
-const mysql = require('mysql')
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "1234",
-    database: "ecommerce_website_db"
-})
+// const mysql = require('mysql')
+// const db = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "1234",
+//     database: "ecommerce_website_db"
+// })
 
 const TokenCheck = async (req, res, next) => {
     const { token, id } = await req.headers;

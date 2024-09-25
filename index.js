@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path')
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser') // npm i cookie-parser
-const mysql = require('mysql')
+// const mysql = require('mysql2')
 const cors = require('cors')
 const app = express();
 
@@ -50,5 +50,5 @@ app.use('/admin', AdminRouter)
 app.use('/super_admin', Super_AdminRouter)
 
 // Listener
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3306
 app.listen(PORT, () => console.log(`server started on PORT: ${PORT}`))
