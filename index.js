@@ -50,5 +50,5 @@ app.use('/admin', AdminRouter)
 app.use('/super_admin', Super_AdminRouter)
 
 // Listener
-const PORT = process.env.PORT || 3306
+const PORT = process.env.PORT || 3306 //5000
 app.listen(PORT, () => console.log(`server started on PORT: ${PORT}`))
