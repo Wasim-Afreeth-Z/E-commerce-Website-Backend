@@ -6,25 +6,25 @@ const wishlistControl = require('../controllers/wishlistControl')
 router.post("/create",wishlistControl.CreateMyWishlist);
 
 //display the wishlist
-router.get("/displaywishlist/:id",wishlistControl.DisplayWishlist);
+router.post("/displaywishlist",wishlistControl.DisplayWishlist);
 
 //Delete the wishlist product
-router.delete("/deletewishlist/:id",wishlistControl.DeleteWishlist);
+router.post("/deletewishlist",wishlistControl.DeleteWishlist);
 
 //update Stock Wishlist
-router.put("/updatestock/:id",wishlistControl.UpdateWishlistStock);
+router.post("/updatestock",wishlistControl.UpdateWishlistStock);
 
 //update Wishlist product
-router.put("/updatewishlistproduct/:id",wishlistControl.UpdateWishlistProduct);
+router.post("/updatewishlistproduct",wishlistControl.UpdateWishlistProduct);
 
 //update quantity wish list
-router.put("/updateQuantity/:id",wishlistControl.UpdateQuantityWishlist);
+router.post("/updateQuantity",wishlistControl.UpdateQuantityWishlist);
 
 //update Stock Wishlist when delete account
-router.put("/updatestockdeleteaccount/:id",wishlistControl.UpdateWishlistStockDeleteAccount);
+router.post("/updatestockdeleteaccount",wishlistControl.UpdateWishlistStockDeleteAccount);
 
 //Delete All Wishlist Product
-router.delete("/deleteallwishlistproduct/:id", wishlistControl.DeleteAllWishlistProduct);
+router.post("/deleteallwishlistproduct", wishlistControl.DeleteAllWishlistProduct);
 
 //View Product Form Wishlist
 router.post("/viewproductformwishlist",wishlistControl.ViewProductFormWishlist);

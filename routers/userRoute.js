@@ -16,12 +16,12 @@ router.post("/token", userControl.Token);
 router.post("/tokenremove", userControl.TokenRemove);
 
 // get user detail
-router.get("/getuser/:id", userControl.GetUser);
+router.post("/getuser", userControl.GetUser);
 
 // Update user detail
-router.put("/update/:id",validation(userSchema), userControl.UpdateMyAccount);
+router.post("/update",validation(userSchema), userControl.UpdateMyAccount);
 
 // Delete user Account
-router.delete("/delete/:id", userControl.DeleteMyAccount);
+router.post("/delete", userControl.DeleteMyAccount);
 
 module.exports = router;

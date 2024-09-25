@@ -13,7 +13,7 @@ router.get("/display", AdminControl.DisplayAdmins);
 // router.put("/update/:id",validation(userSchema), AdminControl.UpdateAdminDetails);
 
 // Delete Admin
-router.delete("/delete/:id", AdminControl.DeleteAdmin);
+router.post("/delete", AdminControl.DeleteAdmin);
 
 
 module.exports = router;

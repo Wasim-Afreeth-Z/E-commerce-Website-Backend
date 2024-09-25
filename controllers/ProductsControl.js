@@ -103,13 +103,13 @@ const CreateProduct = async (req, res) => {
 
 //display the Products
 const GetProducts = async (req, res) => {
-    let user_id = req.params.id
+    let user_id = req.body.id
     let sql = "SELECT p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.cat_id, p.quantity, p.user_id as productcreater, c.category,0 isAdded,0 isWhislist from products as p INNER JOIN categories as c ON p.cat_id = c.id ORDER BY p.id;";
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to show the data");
         } else {
-            if (user_id !== null) {
+            if (user_id !== null || user_id !== undefined) {
                 // add to cart button change added 
                 let sql = "select * from mycart where user_id=" + user_id;
                 db.query(sql, async (cart_error, cart_result) => {
@@ -148,7 +148,7 @@ const GetProducts = async (req, res) => {
 
 //display the Products BY UserId
 const GetProductsByID = (req, res) => {
-    let sql = "SELECT p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.cat_id, p.quantity, p.user_id as productcreater, c.category from products as p INNER JOIN categories as c ON p.cat_id = c.id where p.user_id= " + req.params.id + " ORDER BY p.id DESC;";
+    let sql = "SELECT p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.cat_id, p.quantity, p.user_id as productcreater, c.category from products as p INNER JOIN categories as c ON p.cat_id = c.id where p.user_id= " + req.body.id + " ORDER BY p.id DESC;";
     db.query(sql, async (error, result) => {
         if (error) {
             console.log("Unable to show the data");
@@ -165,7 +165,7 @@ const GetProductsByID = (req, res) => {
 //Update the product
 const UpdateProduct = (req, res) => {
     const { productname, image, description, price, stock, cat_id } = req.body;
-    const productId = req.params.id;
+    const productId = req.body.id;
     try {
         if (!productname) throw new Error('Product Name is Required')
         if (!description) throw new Error('Description is Required')
@@ -201,7 +201,7 @@ const UpdateProduct = (req, res) => {
 const UpdateQuantityProduct = (req, res) => {
     let sql =
         "UPDATE products SET quantity='" + req.body.quantity +
-        "'  WHERE id=" + req.params.id;
+        "'  WHERE id=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -215,7 +215,7 @@ const UpdateQuantityProduct = (req, res) => {
 
 //Delete the product
 const DeleteProduct = (req, res) => {
-    let sql = "DELETE FROM products WHERE id=" + req.params.id + "";
+    let sql = "DELETE FROM products WHERE id=" + req.body.id + "";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             // console.log(error)
@@ -241,7 +241,7 @@ const categoryList = (req, res) => {
 
 //category filter
 const categoryFilter = (req, res) => {
-    let categoryID = req.params.id;
+    let categoryID = req.body.id;
     let sql = "SELECT  p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.quantity, p.cat_id, p.user_id as productcreater,  c.category from products as p LEFT JOIN categories as c ON p.cat_id = c.id where cat_id=" + categoryID;
     db.query(sql, (error, result) => {
         if (error) {
@@ -269,7 +269,7 @@ const categoryFilterForAdmin = (req, res) => {
 
 //Search Filter
 const SearchFilter = (req, res) => {
-    let searchInput = req.params.id;
+    let searchInput = req.body.input;
     let sql = `SELECT  p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.cat_id, p.quantity, p.user_id as productcreater,  c.category from products as p LEFT JOIN categories as c ON p.cat_id = c.id where p.productname like '%${searchInput}%'`;
     db.query(sql, (error, result) => {
         if (error) {
@@ -296,7 +296,7 @@ const SearchFilterForAdmin = (req, res) => {
 
 //Delete All Product
 const DeleteAllProduct = (req, res) => {
-    let sql = "delete from products where user_id=" + req.params.id + ";";
+    let sql = "delete from products where user_id=" + req.body.id + ";";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             res.send({ status: false, message: "Failed to Delete" });

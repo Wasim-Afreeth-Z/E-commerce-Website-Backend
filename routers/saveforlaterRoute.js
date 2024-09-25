@@ -6,25 +6,25 @@ const saveforlaterControl = require('../controllers/saveforlaterControl')
 router.post("/create",saveforlaterControl.CreateSaveForLater);
 
 //display the Save For Later
-router.get("/displaysaveforlater/:id",saveforlaterControl.DisplaySaveForLater);
+router.post("/displaysaveforlater",saveforlaterControl.DisplaySaveForLater);
 
 //Delete the Save For Later product
-router.delete("/deletesaveforlater/:id",saveforlaterControl.DeleteSaveForLater);
+router.post("/deletesaveforlater",saveforlaterControl.DeleteSaveForLater);
 
 //update quantity save for later
-router.put("/updateQuantity/:id",saveforlaterControl.UpdateQuantitySaveForLater);
+router.post("/updateQuantity",saveforlaterControl.UpdateQuantitySaveForLater);
 
 //update Stock save for later
-router.put("/updatestock/:id",saveforlaterControl.UpdateSaveForLaterStock);
+router.post("/updatestock",saveforlaterControl.UpdateSaveForLaterStock);
 
 //update saveforlater product
-router.put("/updatesaveforlaterproduct/:id",saveforlaterControl.UpdateSaveForLaterProducts);
+router.post("/updatesaveforlaterproduct",saveforlaterControl.UpdateSaveForLaterProducts);
 
 //update Stock save for later when delete account
-router.put("/updatestockdeleteaccount/:id",saveforlaterControl.UpdateSaveForLaterStockDeleteAccount);
+router.post("/updatestockdeleteaccount",saveforlaterControl.UpdateSaveForLaterStockDeleteAccount);
 
 //Delete All the Save For Later Product
-router.delete("/deleteallsaveforlater/:id", saveforlaterControl.DeleteAllSaveForLaterProduct);
+router.post("/deleteallsaveforlater", saveforlaterControl.DeleteAllSaveForLaterProduct);
 
 //View Product Form Saveforlater
 router.post("/viewproductformsaveforlater",saveforlaterControl.ViewProductFormSaveForLater);

@@ -50,8 +50,8 @@ const CreateMyWishlist = (req, res) => {
 
 //display the Wishlist
 const DisplayWishlist = (req, res) => {
-    let user_id = req.params.id
-    let sql = "Select w.id, w.product_id, w.productname, w.image, w.description, w.price, w.stock, w.productcreater, w.user_id, w.quantity, w.cat_id, cat.category, 0 isAdded from mywishlist as w LEFT JOIN categories as cat ON w.cat_id = cat.id  where user_id=" + req.params.id + " ORDER BY id DESC;";
+    let user_id = req.body.id
+    let sql = "Select w.id, w.product_id, w.productname, w.image, w.description, w.price, w.stock, w.productcreater, w.user_id, w.quantity, w.cat_id, cat.category, 0 isAdded from mywishlist as w LEFT JOIN categories as cat ON w.cat_id = cat.id  where user_id=" + user_id + " ORDER BY id DESC;";
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to show the data");
@@ -81,7 +81,7 @@ const DisplayWishlist = (req, res) => {
 
 //Delete the Wishlist product
 const DeleteWishlist = (req, res) => {
-    let sql = "DELETE FROM mywishlist WHERE id=" + req.params.id + "";
+    let sql = "DELETE FROM mywishlist WHERE id=" + req.body.id + "";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             res.send({ status: false, message: "Failed to delete the wishlist Product" });
@@ -95,7 +95,7 @@ const DeleteWishlist = (req, res) => {
 const UpdateWishlistStock = (req, res) => {
     let sql =
         "UPDATE mywishlist SET stock='" + req.body.stock +
-        "'  WHERE product_id=" + req.params.id;
+        "'  WHERE product_id=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -110,7 +110,7 @@ const UpdateWishlistStock = (req, res) => {
 //Update Wishlist products
 const UpdateWishlistProduct = (req, res) => {
     const { productname, image, description, price, stock, cat_id } = req.body;
-    const product_id = req.params.id;
+    const product_id = req.body.id;
     try {
         if (!productname) throw new Error('Product Name is Required')
         if (!description) throw new Error('Description is Required')
@@ -136,7 +136,7 @@ const UpdateWishlistProduct = (req, res) => {
 const UpdateQuantityWishlist = (req, res) => {
     let sql =
         "UPDATE mywishlist SET quantity='" + req.body.quantity +
-        "'  WHERE id=" + req.params.id;
+        "'  WHERE id=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -152,7 +152,7 @@ const UpdateQuantityWishlist = (req, res) => {
 const UpdateWishlistStockDeleteAccount = (req, res) => {
     let sql =
         "UPDATE mywishlist SET stock='" + req.body.stock +
-        "'  WHERE productcreater=" + req.params.id;
+        "'  WHERE productcreater=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -166,7 +166,7 @@ const UpdateWishlistStockDeleteAccount = (req, res) => {
 
 //Delete All Wishlist Product
 const DeleteAllWishlistProduct = (req, res) => {
-    let sql = "delete from mywishlist where user_id=" + req.params.id + ";";
+    let sql = "delete from mywishlist where user_id=" + req.body.id + ";";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             res.send({ status: false, message: "Failed to Delete" });

@@ -98,7 +98,7 @@ const DisplayAdmins = async (req, res) => {
 
 //Delete admin
 const DeleteAdmin = (req, res) => {
-    let sql = "DELETE FROM users WHERE id=" + req.params.id + "";
+    let sql = "DELETE FROM users WHERE id=" + req.body.id + "";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             console.log(error);

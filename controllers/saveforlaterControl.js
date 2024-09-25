@@ -50,8 +50,8 @@ const CreateSaveForLater = (req, res) => {
 
 //display the Save For Later
 const DisplaySaveForLater = (req, res) => {
-    let user_id = req.params.id
-    let sql = "Select s.id, s.product_id, s.productname, s.image, s.description, s.price, s.stock, s.productcreater, s.user_id, s.quantity, s.cat_id, cat.category, 0 isAdded from saveforlater as s LEFT JOIN categories as cat ON s.cat_id = cat.id where user_id=" + req.params.id + " ORDER BY id DESC;";
+    let user_id = req.body.id
+    let sql = "Select s.id, s.product_id, s.productname, s.image, s.description, s.price, s.stock, s.productcreater, s.user_id, s.quantity, s.cat_id, cat.category, 0 isAdded from saveforlater as s LEFT JOIN categories as cat ON s.cat_id = cat.id where user_id=" + user_id + " ORDER BY id DESC;";
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to show the data");
@@ -81,7 +81,7 @@ const DisplaySaveForLater = (req, res) => {
 
 //Delete the Save For Later product
 const DeleteSaveForLater = (req, res) => {
-    let sql = "DELETE FROM saveforlater WHERE id=" + req.params.id + "";
+    let sql = "DELETE FROM saveforlater WHERE id=" + req.body.id + "";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             res.send({ status: false, message: "Failed to delete the SaveForLater Product" });
@@ -95,7 +95,7 @@ const DeleteSaveForLater = (req, res) => {
 const UpdateQuantitySaveForLater = (req, res) => {
     let sql =
         "UPDATE saveforlater SET quantity='" + req.body.quantity +
-        "'  WHERE id=" + req.params.id;
+        "'  WHERE id=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -111,7 +111,7 @@ const UpdateQuantitySaveForLater = (req, res) => {
 const UpdateSaveForLaterStock = (req, res) => {
     let sql =
         "UPDATE saveforlater SET stock='" + req.body.stock +
-        "'  WHERE product_id=" + req.params.id;
+        "'  WHERE product_id=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -126,7 +126,7 @@ const UpdateSaveForLaterStock = (req, res) => {
 //Update saveforlater products
 const UpdateSaveForLaterProducts = (req, res) => {
     const { productname, image, description, price, stock, cat_id } = req.body;
-    const product_id = req.params.id;
+    const product_id = req.body.id;
     try {
         if (!productname) throw new Error('Product Name is Required')
         if (!description) throw new Error('Description is Required')
@@ -152,7 +152,7 @@ const UpdateSaveForLaterProducts = (req, res) => {
 const UpdateSaveForLaterStockDeleteAccount = (req, res) => {
     let sql =
         "UPDATE saveforlater SET stock='" + req.body.stock +
-        "'  WHERE productcreater=" + req.params.id;
+        "'  WHERE productcreater=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -166,7 +166,7 @@ const UpdateSaveForLaterStockDeleteAccount = (req, res) => {
 
 //Delete All Save For Later Product
 const DeleteAllSaveForLaterProduct = (req, res) => {
-    let sql = "delete from saveforlater where user_id=" + req.params.id + ";";
+    let sql = "delete from saveforlater where user_id=" + req.body.id + ";";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             res.send({ status: false, message: "Failed to Delete" });

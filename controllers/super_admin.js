@@ -24,7 +24,7 @@ const DisplayProducts = async (req, res) => {
 
 //Search Filter For Products
 const SearchFilterForProducts = (req, res) => {
-    let searchInput = req.params.id;
+    let searchInput = req.body.input;
     let sql = `SELECT p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.cat_id, p.user_id as productcreater,p.created_date, p.created_time, u.firstname, u.lastname, u.email, c.category from products as p left JOIN users as u ON p.user_id = u.id left JOIN categories as c ON p.cat_id = c.id where p.productname like '%${searchInput}%' ORDER BY p.id DESC;`;
     db.query(sql, (error, result) => {
         if (error) {
@@ -37,7 +37,7 @@ const SearchFilterForProducts = (req, res) => {
 
 //category filter 
 const categoryFilter = (req, res) => {
-    let categoryID = req.params.id;
+    let categoryID = req.body.id;
     let sql = `SELECT p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.cat_id, p.user_id as productcreater,p.created_date, p.created_time, u.firstname, u.lastname, u.email, c.category from products as p left JOIN users as u ON p.user_id = u.id left JOIN categories as c ON p.cat_id = c.id where p.cat_id=${categoryID} ORDER BY p.id DESC;`;
     db.query(sql, (error, result) => {
         if (error) {
@@ -65,7 +65,7 @@ const DisplayUsers = async (req, res) => {
 
 //Delete user
 const DeleteUser = (req, res) => {
-    let sql = "DELETE FROM users WHERE id=" + req.params.id + "";
+    let sql = "DELETE FROM users WHERE id=" + req.body.id + "";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             console.log(error);

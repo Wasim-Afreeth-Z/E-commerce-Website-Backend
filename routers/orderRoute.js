@@ -9,19 +9,19 @@ router.post("/mycart",orderControl.CreatemyCart);
 router.post("/updateQuantityinhome",orderControl.UpdateQuantityCartInHome);
 
 //display the cart
-router.get("/displaycart/:id",orderControl.DisplayCart);
+router.post("/displaycart",orderControl.DisplayCart);
 
 //View Product Form Cart
 router.post("/viewproductformcart",orderControl.ViewProductFormCart);
 
 //display the cart Out Of Stock
-router.get("/displaycartOutofStock/:id",orderControl.DisplayCartOutofStock);
+router.post("/displaycartOutofStock",orderControl.DisplayCartOutofStock);
 
 //update quantity
-router.put("/updateQuantity/:id",orderControl.UpdateQuantityCart);
+router.post("/updateQuantity",orderControl.UpdateQuantityCart);
 
 //Delete the cart
-router.delete("/deletecart/:id",orderControl.DeleteCart);
+router.post("/deletecart",orderControl.DeleteCart);
 
 //add address
 // router.post("/address",orderControl.AddAddress);
@@ -30,33 +30,33 @@ router.delete("/deletecart/:id",orderControl.DeleteCart);
 router.post("/myorder",orderControl.MyOrder);
 
 //Clear Cart
-router.delete("/clearcart/:id",orderControl.ClearCart);
+router.post("/clearcart",orderControl.ClearCart);
 
 //Delete All Cart Product
-router.delete("/deleteallcartproduct/:id",orderControl.DeleteAllCartProduct);
+router.post("/deleteallcartproduct",orderControl.DeleteAllCartProduct);
 
 //display the myOrders
-router.get("/displaymyorders/:id",orderControl.DisplayMyOrders);
+router.post("/displaymyorders",orderControl.DisplayMyOrders);
 
 //display the myOrders in Dashboard
-router.get("/displaymyordersdashboard/:id",orderControl.DisplayMyOrdersDashboard);
+router.post("/displaymyordersdashboard",orderControl.DisplayMyOrdersDashboard);
 
 //display the address
 // router.get("/displayaddress/:id",orderControl.DisplayAddress);
 
 //update status
-router.put("/updatestatus/:id",orderControl.Updatestatus);
+router.post("/updatestatus",orderControl.Updatestatus);
 
 //update status when Delete Account
-router.put("/updatestatusdeleteaccount/:id",orderControl.UpdatestatusDeleteAccount);
+router.post("/updatestatusdeleteaccount",orderControl.UpdatestatusDeleteAccount);
 
 //update Stock cart
-router.put("/updatestock/:id",orderControl.UpdateCartstock);
+router.post("/updatestock",orderControl.UpdateCartstock);
 
 //update Cart Product
-router.put("/updatecartproduct/:id",orderControl.UpdateCartProduct);
+router.post("/updatecartproduct",orderControl.UpdateCartProduct);
 
 //update Stock cart when delete account
-router.put("/updatestockdeleteaccount/:id",orderControl.UpdateCartstockDeleteAccount);
+router.post("/updatestockdeleteaccount",orderControl.UpdateCartstockDeleteAccount);
 
 module.exports = router;

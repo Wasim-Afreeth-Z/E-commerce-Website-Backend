@@ -68,7 +68,7 @@ const UpdateQuantityCartInHome = (req, res) => {
 
 //display the cart
 const DisplayCart = (req, res) => {
-    let sql = "Select c.id, c.product_id, c.productname, c.image, c.description, c.price, c.stock, c.productcreater, c.user_id, c.quantity, c.cat_id, cat.category from mycart as c LEFT JOIN categories as cat ON c.cat_id = cat.id where user_id=" + req.params.id + " AND stock='In Stock' ORDER BY id DESC;";
+    let sql = "Select c.id, c.product_id, c.productname, c.image, c.description, c.price, c.stock, c.productcreater, c.user_id, c.quantity, c.cat_id, cat.category from mycart as c LEFT JOIN categories as cat ON c.cat_id = cat.id where user_id=" + req.body.id + " AND stock='In Stock' ORDER BY id DESC;";
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to show the data");
@@ -98,7 +98,7 @@ const ViewProductFormCart = (req, res) => {
 
 //display the cart Out Of Stock
 const DisplayCartOutofStock = (req, res) => {
-    let sql = "Select c.id, c.product_id, c.productname, c.image, c.description, c.price, c.stock, c.productcreater, c.user_id, c.quantity, c.cat_id, cat.category from mycart as c LEFT JOIN categories as cat ON c.cat_id = cat.id where user_id=" + req.params.id + " AND stock='Out of Stock' ORDER BY id DESC;";
+    let sql = "Select c.id, c.product_id, c.productname, c.image, c.description, c.price, c.stock, c.productcreater, c.user_id, c.quantity, c.cat_id, cat.category from mycart as c LEFT JOIN categories as cat ON c.cat_id = cat.id where user_id=" + req.body.id + " AND stock='Out of Stock' ORDER BY id DESC;";
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to show the data");
@@ -115,7 +115,7 @@ const DisplayCartOutofStock = (req, res) => {
 const UpdateQuantityCart = (req, res) => {
     let sql =
         "UPDATE mycart SET quantity='" + req.body.quantity +
-        "'  WHERE id=" + req.params.id;
+        "'  WHERE id=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -129,7 +129,7 @@ const UpdateQuantityCart = (req, res) => {
 
 //Delete the cart product
 const DeleteCart = (req, res) => {
-    let sql = "DELETE FROM mycart WHERE id=" + req.params.id + "";
+    let sql = "DELETE FROM mycart WHERE id=" + req.body.id + "";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             res.send({ status: false, message: "Failed to delete the cart" });
@@ -221,7 +221,7 @@ const MyOrder = (req, res) => {
 
 //After Order Placed clear the cart
 const ClearCart = (req, res) => {
-    let sql = "delete from mycart where user_id=" + req.params.id + " AND stock='In Stock';";
+    let sql = "delete from mycart where user_id=" + req.body.id + " AND stock='In Stock';";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             res.send({ status: false, message: "Failed to Clear the Cart" });
@@ -233,7 +233,7 @@ const ClearCart = (req, res) => {
 
 //Delete All Cart Product
 const DeleteAllCartProduct = (req, res) => {
-    let sql = "delete from mycart where user_id=" + req.params.id + ";";
+    let sql = "delete from mycart where user_id=" + req.body.id + ";";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             res.send({ status: false, message: "Failed to delete the Cart product" });
@@ -245,7 +245,7 @@ const DeleteAllCartProduct = (req, res) => {
 
 //display my Orders
 const DisplayMyOrders = (req, res) => {
-    let sql = "select  id as orderid, product_id, quantity, ordereddate, deliverydate, orderstatus, user_id as customerid, CustomerName, email, address, city, state, pincode, telephone, productname, image, description, price , productcreater from myorders  where user_id=" + req.params.id + " ORDER BY id DESC;";
+    let sql = "select  id as orderid, product_id, quantity, ordereddate, deliverydate, orderstatus, user_id as customerid, CustomerName, email, address, city, state, pincode, telephone, productname, image, description, price , productcreater from myorders  where user_id=" + req.body.id + " ORDER BY id DESC;";
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to show the data");
@@ -260,7 +260,7 @@ const DisplayMyOrders = (req, res) => {
 
 //display my Orders in Dashboard
 const DisplayMyOrdersDashboard = (req, res) => {
-    let sql = "select  id as orderid, product_id, quantity, ordereddate, deliverydate, orderstatus, user_id as customerid, CustomerName, email, address, city, state, pincode, telephone, productname, image, description, price , productcreater from myorders  where productcreater=" + req.params.id + " ORDER BY id DESC;";
+    let sql = "select  id as orderid, product_id, quantity, ordereddate, deliverydate, orderstatus, user_id as customerid, CustomerName, email, address, city, state, pincode, telephone, productname, image, description, price , productcreater from myorders  where productcreater=" + req.body.id + " ORDER BY id DESC;";
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to show the data");
@@ -292,7 +292,7 @@ const DisplayMyOrdersDashboard = (req, res) => {
 const Updatestatus = (req, res) => {
     let sql =
         "UPDATE myorders SET orderstatus='" + req.body.orderstatus +
-        "'  WHERE id=" + req.params.id;
+        "'  WHERE id=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -308,7 +308,7 @@ const Updatestatus = (req, res) => {
 const UpdatestatusDeleteAccount = (req, res) => {
     let sql =
         "UPDATE myorders SET orderstatus='" + req.body.orderstatus +
-        "'  WHERE productcreater=" + req.params.id;
+        "'  WHERE productcreater=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -324,7 +324,7 @@ const UpdatestatusDeleteAccount = (req, res) => {
 const UpdateCartstock = (req, res) => {
     let sql =
         "UPDATE mycart SET stock='" + req.body.stock +
-        "'  WHERE product_id=" + req.params.id;
+        "'  WHERE product_id=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {
@@ -339,7 +339,7 @@ const UpdateCartstock = (req, res) => {
 //Update cart product
 const UpdateCartProduct = (req, res) => {
     const { productname, image, description, price, stock, cat_id } = req.body;
-    const product_id = req.params.id;
+    const product_id = req.body.id;
     try {
         if (!productname) throw new Error('Product Name is Required')
         if (!description) throw new Error('Description is Required')
@@ -365,7 +365,7 @@ const UpdateCartProduct = (req, res) => {
 const UpdateCartstockDeleteAccount = (req, res) => {
     let sql =
         "UPDATE mycart SET stock='" + req.body.stock +
-        "'  WHERE productcreater=" + req.params.id;
+        "'  WHERE productcreater=" + req.body.id;
 
     let update_Query = db.query(sql, (error, result) => {
         if (error) {

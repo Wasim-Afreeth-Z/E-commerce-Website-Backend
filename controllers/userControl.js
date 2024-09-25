@@ -196,7 +196,7 @@ const TokenRemove = (req, res) => {
 
 //display the userDetail
 const GetUser = (req, res) => {
-    let sql = "SELECT * FROM users Where id = " + req.params.id + "";
+    let sql = "SELECT * FROM users Where id = " + req.body.id + "";
     db.query(sql, (error, results) => {
         if (error) {
             console.log("Unable to show the user data");
@@ -220,7 +220,7 @@ const GetUser = (req, res) => {
 // ! Update the myAccount
 const UpdateMyAccount = (req, res) => {
     const { firstname, lastname, email, password } = req.body;
-    const user_id = req.params.id
+    const user_id = req.body.id
     try {
         if (!firstname) throw new Error('Firstname is Required')
         if (!lastname) throw new Error('Lastname is Required')
@@ -238,7 +238,7 @@ const UpdateMyAccount = (req, res) => {
                     "', lastname='" + lastname +
                     "',email='" + email +
                     "',password='" + password +
-                    "'  WHERE id=" + req.params.id;
+                    "'  WHERE id=" + user_id;
 
                 let update_Query = db.query(sql, (error, result) => {
                     if (error) {
@@ -303,7 +303,7 @@ const UpdateMyAccount = (req, res) => {
 
 //Delete myaccount
 const DeleteMyAccount = (req, res) => {
-    let sql = "DELETE FROM users WHERE id=" + req.params.id + "";
+    let sql = "DELETE FROM users WHERE id=" + req.body.id + "";
     let delete_Query = db.query(sql, (error) => {
         if (error) {
             console.log(error);
