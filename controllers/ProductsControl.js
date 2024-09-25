@@ -104,7 +104,7 @@ const CreateProduct = async (req, res) => {
 //display the Products
 const GetProducts = async (req, res) => {
     let user_id = req.body.id
-    let sql = "SELECT p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.cat_id, p.quantity, p.user_id as productcreater, c.category,0 isAdded,0 isWhislist from products as p INNER JOIN categories as c ON p.cat_id = c.id ORDER BY p.id;";
+    let sql = "SELECT p.id as product_id, p.productname, p.image, p.description, p.stock, p.cat_id, p.quantity, p.user_id as productcreater, c.category,0 isAdded,0 isWhislist from products as p INNER JOIN categories as c ON p.cat_id = c.id ORDER BY p.id;";
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to show the data");
