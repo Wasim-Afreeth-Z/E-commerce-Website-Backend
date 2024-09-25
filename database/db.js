@@ -1,8 +1,8 @@
-const mysql =require('mysql2')
+const mysql = require('mysql2')
 var util = require('util');
 
 
-const db=mysql.createConnection({
+const db = mysql.createConnection({
     // connectionLimit: 10,
     // host: "localhost",
     // user: "root",
@@ -14,10 +14,10 @@ const db=mysql.createConnection({
     user: "u3o3vrrn9khc4onx",
     password: "yNEqKYArruTtQWu6wjTv",
     database: "besqmdgi016kfzlubm2k",
-    port:3306,
+    port: 3306,
     charset: 'utf8mb4'
 })
-db.connect(function(){
+db.connect(function () {
     console.log('Connected to Database')
 })
 db.query = util.promisify(db.query)
