@@ -6,7 +6,7 @@ const path = require('path')
 const { TokenCheck } = require('../Middlewares/auth')
 const image = require('../images')
 
-// !upload path for Product Image
+// !upload path for Product Image using multer
 const productstorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './public/images/product-images')
