@@ -242,12 +242,45 @@ const categoryList = (req, res) => {
 //category filter
 const categoryFilter = (req, res) => {
     let categoryID = req.body.id;
-    let sql = "SELECT  p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.quantity, p.cat_id, p.user_id as productcreater,  c.category from products as p LEFT JOIN categories as c ON p.cat_id = c.id where cat_id=" + categoryID;
+    let user_id = req.body.user_id;
+    let sql = "SELECT  p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.quantity, p.cat_id, p.user_id as productcreater,  c.category,0 isAdded,0 isWhislist from products as p LEFT JOIN categories as c ON p.cat_id = c.id where cat_id=" + categoryID;
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to find the data");
         } else {
-            res.send({ status: true, data: result });
+            if (user_id !== null || user_id !== undefined) {
+                // add to cart button change added 
+                let sql = "select * from mycart where user_id=" + user_id;
+                db.query(sql, async (cart_error, cart_result) => {
+                    if (cart_error) {
+                        console.log("Unable to show the data");
+                    } else {
+                        for (let cart of cart_result) {
+                            let index = result.findIndex(product => cart.product_id == product.product_id)
+                            if (index != -1) {
+                                result[index].isAdded = 1
+                            }
+                        }
+                        // add to Whishlist button change added 
+                        let sql2 = "select * from mywishlist where user_id=" + user_id;
+                        db.query(sql2, async (wishlist_error, wishlist_result) => {
+                            if (wishlist_error) {
+                                console.log("Unable to show the data");
+                            } else {
+                                for (let wishlist of wishlist_result) {
+                                    let index = result.findIndex(product => wishlist.product_id == product.product_id)
+                                    if (index != -1) {
+                                        result[index].isWhislist = 1
+                                    }
+                                }
+                                res.send({ status: true, data: result });
+                            }
+                        });
+                    }
+                });
+            } else {
+                res.send({ status: true, data: result });
+            }
         }
     });
 }
@@ -270,12 +303,45 @@ const categoryFilterForAdmin = (req, res) => {
 //Search Filter
 const SearchFilter = (req, res) => {
     let searchInput = req.body.input;
-    let sql = `SELECT  p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.cat_id, p.quantity, p.user_id as productcreater,  c.category from products as p LEFT JOIN categories as c ON p.cat_id = c.id where p.productname like '%${searchInput}%'`;
+    let user_id = req.body.id;
+    let sql = `SELECT  p.id as product_id, p.productname, p.image, p.description, p.price, p.stock, p.cat_id, p.quantity, p.user_id as productcreater,  c.category,0 isAdded,0 isWhislist from products as p LEFT JOIN categories as c ON p.cat_id = c.id where p.productname like '%${searchInput}%'`;
     db.query(sql, (error, result) => {
         if (error) {
             console.log("Unable to find the data");
         } else {
-            res.send({ status: true, data: result });
+            if (user_id !== null || user_id !== undefined) {
+                // add to cart button change added 
+                let sql = "select * from mycart where user_id=" + user_id;
+                db.query(sql, async (cart_error, cart_result) => {
+                    if (cart_error) {
+                        console.log("Unable to show the data");
+                    } else {
+                        for (let cart of cart_result) {
+                            let index = result.findIndex(product => cart.product_id == product.product_id)
+                            if (index != -1) {
+                                result[index].isAdded = 1
+                            }
+                        }
+                        // add to Whishlist button change added 
+                        let sql2 = "select * from mywishlist where user_id=" + user_id;
+                        db.query(sql2, async (wishlist_error, wishlist_result) => {
+                            if (wishlist_error) {
+                                console.log("Unable to show the data");
+                            } else {
+                                for (let wishlist of wishlist_result) {
+                                    let index = result.findIndex(product => wishlist.product_id == product.product_id)
+                                    if (index != -1) {
+                                        result[index].isWhislist = 1
+                                    }
+                                }
+                                res.send({ status: true, data: result });
+                            }
+                        });
+                    }
+                });
+            } else {
+                res.send({ status: true, data: result });
+            }
         }
     });
 }
